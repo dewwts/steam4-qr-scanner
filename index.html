@@ -209,36 +209,34 @@ async function startScanner() {
 
     await scanner.start(
 
-      {
-        facingMode: {
-          ideal: 'environment'
-        }
-      },
+  {
+    facingMode: "environment"
+  },
 
-      {
-        fps: 10,
+  {
+    fps: 10,
 
-        qrbox: {
-          width: 260,
-          height: 260
-        },
+    qrbox: {
+      width: 260,
+      height: 260
+    },
 
-        aspectRatio: 1
-      },
+    aspectRatio: 1
+  },
 
-      function(decodedText) {
+  function(decodedText) {
 
-        handleScan(
-          decodedText
-        );
-
-      },
-
-      function() {
-        // ไม่ต้องทำอะไรตอนอ่าน QR ไม่เจอ
-      }
-
+    handleScan(
+      decodedText
     );
+
+  },
+
+  function() {
+    // ไม่ต้องทำอะไรตอนอ่าน QR ไม่เจอ
+  }
+
+);
 
     running = true;
 
