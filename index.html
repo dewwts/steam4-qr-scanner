@@ -29,6 +29,7 @@
 
 
     body {
+
       margin: 0;
 
       font-family:
@@ -43,41 +44,55 @@
 
       color:
         #111;
+
     }
 
 
     .app {
-      max-width: 520px;
-      margin: auto;
-      padding: 20px;
+
+      max-width:
+        520px;
+
+      margin:
+        auto;
+
+      padding:
+        16px;
+
     }
 
 
     .card {
-      background: white;
+
+      background:
+        white;
 
       border-radius:
         22px;
 
       padding:
-        22px;
+        20px;
 
       box-shadow:
         0 4px 20px
         rgba(0,0,0,.08);
+
     }
 
 
     h1 {
+
       margin:
-        0 0 6px;
+        0 0 5px;
 
       font-size:
         24px;
+
     }
 
 
     .subtitle {
+
       color:
         #666;
 
@@ -86,33 +101,37 @@
 
       line-height:
         1.5;
+
     }
 
 
     #reader {
+
       width:
         100%;
 
       margin-top:
-        20px;
+        18px;
 
       overflow:
         hidden;
 
       border-radius:
         18px;
+
     }
 
 
     button {
+
       width:
         100%;
 
       min-height:
-        52px;
+        50px;
 
       margin-top:
-        16px;
+        12px;
 
       border:
         0;
@@ -127,103 +146,224 @@
         white;
 
       font-size:
-        17px;
+        16px;
 
       font-weight:
         700;
 
       cursor:
         pointer;
+
     }
 
 
     button.secondary {
+
       background:
-        #eee;
+        #ececec;
 
       color:
         #111;
+
+    }
+
+
+    button.warning {
+
+      background:
+        #995800;
+
+      color:
+        white;
+
+    }
+
+
+    button:disabled {
+
+      opacity:
+        .45;
+
     }
 
 
     .status {
+
       margin-top:
-        18px;
+        16px;
 
       padding:
         18px;
 
-      text-align:
-        center;
-
       border-radius:
         16px;
 
+      text-align:
+        center;
+
       background:
-        #f2f3f4;
+        #f1f3f5;
+
+    }
+
+
+    .status.ready {
+
+      background:
+        #f1f3f5;
+
     }
 
 
     .status.success {
+
       background:
         #dcf7e2;
+
+    }
+
+
+    .status.warning {
+
+      background:
+        #fff0c5;
+
     }
 
 
     .status.error {
+
       background:
         #ffe0e0;
+
     }
 
 
-    .big {
+    .status-title {
+
       font-size:
-        22px;
+        23px;
 
       font-weight:
-        750;
+        800;
+
     }
 
 
-    .small {
+    .status-name {
+
+      margin-top:
+        7px;
+
+      font-size:
+        19px;
+
+      font-weight:
+        700;
+
+    }
+
+
+    .status-detail {
+
       margin-top:
         5px;
 
       color:
-        #666;
+        #555;
 
       font-size:
         13px;
 
       line-height:
         1.5;
+
     }
 
 
-    .token {
+    .live {
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        7px;
+
       margin-top:
-        10px;
+        12px;
 
       padding:
-        10px;
-
-      word-break:
-        break-all;
-
-      font-size:
-        11px;
-
-      background:
-        rgba(0,0,0,.05);
+        9px 12px;
 
       border-radius:
-        8px;
+        999px;
+
+      background:
+        #eef7ef;
+
+      font-size:
+        12px;
+
+      font-weight:
+        700;
+
+      width:
+        fit-content;
+
+    }
+
+
+    .dot {
+
+      width:
+        9px;
+
+      height:
+        9px;
+
+      border-radius:
+        50%;
+
+      background:
+        #2f9e44;
+
     }
 
 
     .hidden {
+
       display:
         none !important;
+
+    }
+
+
+    .hint {
+
+      margin-top:
+        14px;
+
+      padding:
+        12px;
+
+      border-radius:
+        12px;
+
+      background:
+        #f7f7f7;
+
+      color:
+        #666;
+
+      font-size:
+        12px;
+
+      line-height:
+        1.5;
+
     }
 
   </style>
@@ -236,6 +376,7 @@
 
 <div class="app">
 
+
   <div class="card">
 
 
@@ -245,14 +386,30 @@
 
 
     <div class="subtitle">
-      ใช้สำหรับ Staff Check-in เท่านั้น
+
+      Scanner Station —
+      เปิดกล้องครั้งเดียวแล้วสแกนต่อเนื่องได้เลย
+
+    </div>
+
+
+    <div
+      id="liveBadge"
+      class="live hidden">
+
+      <div class="dot"></div>
+
+      CAMERA ACTIVE
+
     </div>
 
 
     <button
       id="startButton"
       onclick="startScanner()">
-      📷 เปิดกล้อง Scan QR
+
+      📷 เริ่ม Scanner
+
     </button>
 
 
@@ -260,7 +417,9 @@
       id="stopButton"
       class="secondary hidden"
       onclick="stopScanner()">
-      ปิดกล้อง
+
+      หยุดกล้อง
+
     </button>
 
 
@@ -269,26 +428,73 @@
 
     <div
       id="status"
-      class="status">
+      class="status ready">
 
-      <div class="big">
-        พร้อมเปิดกล้อง
+      <div class="status-title">
+        พร้อมใช้งาน
       </div>
 
-      <div class="small">
-        กรุณากดปุ่มด้านบน
+      <div class="status-detail">
+        กดเริ่ม Scanner เพียงครั้งเดียว
       </div>
+
+    </div>
+
+
+    <button
+      id="walkinButton"
+      class="warning hidden"
+      onclick="confirmWalkIn()">
+
+      อนุญาต Walk-in
+
+    </button>
+
+
+    <button
+      class="secondary"
+      onclick="closeScannerWindow()">
+
+      ← กลับ Staff Dashboard
+
+    </button>
+
+
+    <div class="hint">
+
+      หลังเปิดกล้องแล้ว
+      ไม่ต้องกด Scan คนถัดไป
+      เพียงนำ QR ของผู้เข้าร่วมคนต่อไปมาไว้หน้ากล้องได้ทันที
 
     </div>
 
 
   </div>
 
+
 </div>
+
+
+<!--
+  Apps Script จะตอบกลับเข้ามาที่ iframe นี้
+
+  หน้า Staff ไม่ถูก redirect
+-->
+<iframe
+  id="bridgeFrame"
+  name="bridgeFrame"
+  style="display:none;">
+</iframe>
 
 
 <script>
 
+
+/**
+ * ============================================================
+ * STATE
+ * ============================================================
+ */
 
 let scanner =
   null;
@@ -298,13 +504,33 @@ let running =
   false;
 
 
-let finished =
+let processing =
   false;
+
+
+let pendingRequestId =
+  '';
+
+
+let pendingToken =
+  '';
+
+
+let pendingWalkInToken =
+  '';
+
+
+let lastToken =
+  '';
+
+
+let lastTokenAt =
+  0;
 
 
 /**
  * ============================================================
- * CALLBACK CONFIG
+ * URL CONFIG
  * ============================================================
  */
 
@@ -322,26 +548,27 @@ const callbackUrl =
   '';
 
 
-const scanTicket =
+const scanSession =
   query.get(
-    'ticket'
+    'session'
   )
   ||
   '';
 
 
 /**
- * ตรวจว่าเปิดมาจาก Staff App จริง
+ * ต้องเปิดจาก Staff App เท่านั้น
  */
 if (
   !callbackUrl ||
-  !scanTicket
+  !scanSession
 ) {
 
-  showStatus(
+  setStatus(
     'error',
     'เปิด Scanner ไม่ถูกวิธี',
-    'กรุณาเปิด QR Scanner จากหน้า Staff Check-in'
+    '',
+    'กรุณาเปิดจาก Staff Check-in Dashboard'
   );
 
 
@@ -357,15 +584,14 @@ if (
 
 /**
  * ============================================================
- * OPEN CAMERA
+ * START CAMERA
  * ============================================================
  */
 async function startScanner() {
 
 
   if (
-    running ||
-    finished
+    running
   ) {
     return;
   }
@@ -373,7 +599,7 @@ async function startScanner() {
 
   if (
     !callbackUrl ||
-    !scanTicket
+    !scanSession
   ) {
     return;
   }
@@ -399,7 +625,7 @@ async function startScanner() {
 
       {
         fps:
-          10,
+          12,
 
         qrbox: {
           width:
@@ -410,6 +636,7 @@ async function startScanner() {
 
         aspectRatio:
           1
+
       },
 
 
@@ -417,7 +644,7 @@ async function startScanner() {
         decodedText
       ) {
 
-        handleScan(
+        onQrDetected(
           decodedText
         );
 
@@ -426,9 +653,7 @@ async function startScanner() {
 
       function() {
 
-        /**
-         * ignore QR miss
-         */
+        // ignore QR miss
 
       }
 
@@ -460,10 +685,21 @@ async function startScanner() {
       );
 
 
-    showStatus(
+    document
+      .getElementById(
+        'liveBadge'
+      )
+      .classList
+      .remove(
+        'hidden'
+      );
+
+
+    setStatus(
+      'ready',
+      'พร้อมสแกน',
       '',
-      'กำลังสแกน...',
-      'หันกล้องไปที่ QR Code'
+      'นำ QR Code มาไว้หน้ากล้อง'
     );
 
 
@@ -475,9 +711,10 @@ async function startScanner() {
     );
 
 
-    showStatus(
+    setStatus(
       'error',
       'เปิดกล้องไม่ได้',
+      '',
       error.message ||
       String(error)
     );
@@ -490,21 +727,19 @@ async function startScanner() {
 
 /**
  * ============================================================
- * QR SUCCESS
+ * QR DETECTED
  * ============================================================
  */
-async function handleScan(
+function onQrDetected(
   decodedText
 ) {
 
 
-  if (finished) {
+  if (
+    processing
+  ) {
     return;
   }
-
-
-  finished =
-    true;
 
 
   const token =
@@ -515,80 +750,44 @@ async function handleScan(
 
 
   if (!token) {
+    return;
+  }
 
-    finished =
-      false;
+
+  const now =
+    Date.now();
+
+
+  /**
+   * กัน QR เดิมยิงซ้ำทันที
+   *
+   * QR คนใหม่ยังสแกนได้ทันที
+   */
+  if (
+    token ===
+      lastToken
+    &&
+    now -
+      lastTokenAt
+    <
+    8000
+  ) {
 
     return;
   }
 
 
-  /**
-   * หยุดกล้อง
-   */
-  try {
-
-    if (
-      scanner &&
-      running
-    ) {
-
-      await scanner.stop();
-
-    }
-
-  } catch (error) {
-
-    console.log(
-      error
-    );
-
-  }
+  lastToken =
+    token;
 
 
-  running =
-    false;
+  lastTokenAt =
+    now;
 
 
-  document
-    .getElementById(
-      'stopButton'
-    )
-    .classList
-    .add(
-      'hidden'
-    );
-
-
-  showStatus(
-    'success',
-    '✅ Scan สำเร็จ',
-    'กำลังตรวจสอบข้อมูลกับระบบ...',
-    token
-  );
-
-
-  /**
-   * ==========================================================
-   * IMPORTANT
-   *
-   * ไม่ใช้:
-   * window.opener
-   * postMessage
-   *
-   * ส่ง QR กลับ Apps Script ด้วย POST
-   * ==========================================================
-   */
-
-  setTimeout(
-    function() {
-
-      submitToAppsScript(
-        token
-      );
-
-    },
-    400
+  submitScan(
+    token,
+    false
   );
 
 }
@@ -596,12 +795,58 @@ async function handleScan(
 
 /**
  * ============================================================
- * POST TO APPS SCRIPT
+ * SUBMIT SCAN
  * ============================================================
  */
-function submitToAppsScript(
-  token
+function submitScan(
+  token,
+  overrideWalkin
 ) {
+
+
+  if (
+    processing
+  ) {
+    return;
+  }
+
+
+  processing =
+    true;
+
+
+  pendingWalkInToken =
+    '';
+
+
+  document
+    .getElementById(
+      'walkinButton'
+    )
+    .classList
+    .add(
+      'hidden'
+    );
+
+
+  setStatus(
+    'ready',
+    'กำลังตรวจสอบ...',
+    '',
+    'กรุณารอสักครู่'
+  );
+
+
+  const requestId =
+    createRequestId();
+
+
+  pendingRequestId =
+    requestId;
+
+
+  pendingToken =
+    token;
 
 
   const form =
@@ -618,37 +863,52 @@ function submitToAppsScript(
     callbackUrl;
 
 
-  form.target =
-    '_self';
-
-
   /**
-   * action
+   * สำคัญ
+   *
+   * ส่งเข้า iframe
+   * ไม่เปลี่ยนหน้า Scanner
    */
+  form.target =
+    'bridgeFrame';
+
+
   appendHidden(
     form,
     'action',
-    'externalScan'
+    'externalScanV2'
   );
 
 
-  /**
-   * one-time ticket
-   */
   appendHidden(
     form,
-    'ticket',
-    scanTicket
+    'scanSession',
+    scanSession
   );
 
 
-  /**
-   * QR Token
-   */
+  appendHidden(
+    form,
+    'requestId',
+    requestId
+  );
+
+
   appendHidden(
     form,
     'token',
     token
+  );
+
+
+  appendHidden(
+    form,
+    'overrideWalkin',
+    overrideWalkin
+      ?
+      '1'
+      :
+      '0'
   );
 
 
@@ -661,39 +921,341 @@ function submitToAppsScript(
 
   form.submit();
 
+
+  /**
+   * form ใช้เสร็จแล้ว
+   */
+  setTimeout(
+    function() {
+
+      try {
+        form.remove();
+      } catch (error) {}
+
+    },
+    1000
+  );
+
+
+  /**
+   * Timeout safety
+   */
+  setTimeout(
+    function() {
+
+      if (
+        processing &&
+        pendingRequestId ===
+          requestId
+      ) {
+
+        processing =
+          false;
+
+
+        setStatus(
+          'error',
+          'ระบบตอบกลับช้า',
+          '',
+          'ลองสแกน QR อีกครั้ง'
+        );
+
+      }
+
+    },
+    15000
+  );
+
 }
 
 
 /**
- * Hidden form field helper
+ * ============================================================
+ * RECEIVE RESULT FROM APPS SCRIPT
+ * ============================================================
  */
-function appendHidden(
-  form,
-  name,
-  value
+window.addEventListener(
+  'message',
+
+  function(event) {
+
+
+    const data =
+      event.data;
+
+
+    if (
+      !data ||
+      data.source !==
+        'STEAM4_SCAN_RESULT'
+    ) {
+
+      return;
+    }
+
+
+    /**
+     * ป้องกัน response เก่า
+     */
+    if (
+      !data.requestId ||
+      data.requestId !==
+        pendingRequestId
+    ) {
+
+      return;
+    }
+
+
+    processing =
+      false;
+
+
+    pendingRequestId =
+      '';
+
+
+    handleResult(
+      data.result || {}
+    );
+
+  }
+);
+
+
+/**
+ * ============================================================
+ * RESULT
+ * ============================================================
+ */
+function handleResult(
+  result
 ) {
 
 
-  const input =
-    document.createElement(
-      'input'
+  /**
+   * SUCCESS
+   */
+  if (
+    result.ok
+  ) {
+
+
+    const title =
+      result.type ===
+      'WALK_IN'
+        ?
+        '✅ WALK-IN'
+        :
+        '✅ SUCCESS';
+
+
+    let detail =
+      result.registrationId ||
+      '';
+
+
+    if (
+      result.sessionName
+    ) {
+
+      detail +=
+        (
+          detail
+            ?
+            ' · '
+            :
+            ''
+        )
+        +
+        result.sessionName;
+
+    }
+
+
+    setStatus(
+      'success',
+      title,
+      result.name || '',
+      detail
     );
 
 
-  input.type =
-    'hidden';
+    /**
+     * Camera ยังเปิดอยู่
+     *
+     * คนต่อไปเอา QR เข้ามาได้เลย
+     */
 
 
-  input.name =
-    name;
+    return;
+  }
 
 
-  input.value =
-    value;
+  /**
+   * DUPLICATE
+   */
+  if (
+    result.type ===
+    'DUPLICATE'
+  ) {
 
 
-  form.appendChild(
-    input
+    setStatus(
+      'warning',
+      '⚠️ ALREADY CHECKED-IN',
+      result.name || '',
+      result.message || ''
+    );
+
+
+    return;
+  }
+
+
+  /**
+   * NOT REGISTERED
+   */
+  if (
+    result.type ===
+    'NOT_REGISTERED'
+  ) {
+
+
+    pendingWalkInToken =
+      pendingToken;
+
+
+    setStatus(
+      'warning',
+      '⚠️ NOT REGISTERED',
+      result.name || '',
+      result.sessionName ||
+      result.message ||
+      ''
+    );
+
+
+    if (
+      result.canOverride
+    ) {
+
+      document
+        .getElementById(
+          'walkinButton'
+        )
+        .classList
+        .remove(
+          'hidden'
+        );
+
+    }
+
+
+    return;
+  }
+
+
+  /**
+   * SESSION FULL
+   */
+  if (
+    result.type ===
+    'SESSION_FULL'
+  ) {
+
+
+    setStatus(
+      'error',
+      '🔴 ROOM FULL',
+      result.name || '',
+      result.message || ''
+    );
+
+
+    return;
+  }
+
+
+  /**
+   * Scanner session expired
+   */
+  if (
+    result.type ===
+    'SCAN_SESSION_EXPIRED'
+  ) {
+
+
+    setStatus(
+      'error',
+      'Scanner Session หมดอายุ',
+      '',
+      'กลับ Staff Dashboard แล้วเปิด Scanner ใหม่'
+    );
+
+
+    return;
+  }
+
+
+  /**
+   * Generic error
+   */
+  setStatus(
+    'error',
+    '❌ ERROR',
+    result.name || '',
+    result.message ||
+    result.type ||
+    'เกิดข้อผิดพลาด'
+  );
+
+}
+
+
+/**
+ * ============================================================
+ * WALK-IN
+ * ============================================================
+ */
+function confirmWalkIn() {
+
+
+  if (
+    !pendingWalkInToken
+  ) {
+    return;
+  }
+
+
+  const token =
+    pendingWalkInToken;
+
+
+  pendingWalkInToken =
+    '';
+
+
+  document
+    .getElementById(
+      'walkinButton'
+    )
+    .classList
+    .add(
+      'hidden'
+    );
+
+
+  /**
+   * อนุญาตให้ QR เดิม submit ได้
+   */
+  processing =
+    false;
+
+
+  submitScan(
+    token,
+    true
   );
 
 }
@@ -734,10 +1296,10 @@ async function stopScanner() {
 
   document
     .getElementById(
-      'startButton'
+      'liveBadge'
     )
     .classList
-    .remove(
+    .add(
       'hidden'
     );
 
@@ -751,19 +1313,152 @@ async function stopScanner() {
       'hidden'
     );
 
+
+  document
+    .getElementById(
+      'startButton'
+    )
+    .classList
+    .remove(
+      'hidden'
+    );
+
+
+  setStatus(
+    'ready',
+    'กล้องหยุดแล้ว',
+    '',
+    'กดเริ่ม Scanner เพื่อใช้งานต่อ'
+  );
+
 }
 
 
 /**
  * ============================================================
- * STATUS
+ * BACK TO DASHBOARD
  * ============================================================
  */
-function showStatus(
+async function closeScannerWindow() {
+
+
+  if (
+    running
+  ) {
+
+    try {
+
+      await scanner.stop();
+
+    } catch (error) {}
+
+  }
+
+
+  /**
+   * เราไม่ redirect ไป /exec
+   *
+   * เพราะหน้า Dashboard เดิม
+   * ยังเปิดและ Login อยู่ด้านหลัง
+   */
+  try {
+
+    window.close();
+
+  } catch (error) {}
+
+
+  /**
+   * iPhone บางกรณีไม่ยอมให้ JS ปิด
+   */
+  setTimeout(
+    function() {
+
+      setStatus(
+        'ready',
+        'กลับ Staff Dashboard',
+        '',
+        'หากหน้านี้ไม่ปิดอัตโนมัติ ให้กด X มุมขวาบน'
+      );
+
+    },
+    400
+  );
+
+}
+
+
+/**
+ * ============================================================
+ * HELPERS
+ * ============================================================
+ */
+
+function appendHidden(
+  form,
+  name,
+  value
+) {
+
+
+  const input =
+    document.createElement(
+      'input'
+    );
+
+
+  input.type =
+    'hidden';
+
+
+  input.name =
+    name;
+
+
+  input.value =
+    value;
+
+
+  form.appendChild(
+    input
+  );
+
+}
+
+
+function createRequestId() {
+
+
+  if (
+    window.crypto &&
+    typeof window.crypto.randomUUID ===
+      'function'
+  ) {
+
+    return window.crypto
+      .randomUUID();
+
+  }
+
+
+  return (
+    Date.now()
+    +
+    '-'
+    +
+    Math.random()
+      .toString(36)
+      .slice(2)
+  );
+
+}
+
+
+function setStatus(
   type,
   title,
-  subtitle,
-  token
+  name,
+  detail
 ) {
 
 
@@ -775,35 +1470,36 @@ function showStatus(
 
 
   box.className =
-    'status'
+    'status '
     +
-    (
-      type
-        ?
-        ' ' +
-        type
-        :
-        ''
-    );
+    type;
 
 
   box.innerHTML =
     `
 
-      <div class="big">
+      <div class="status-title">
         ${escapeHtml(title)}
       </div>
 
-      <div class="small">
-        ${escapeHtml(subtitle)}
-      </div>
-
       ${
-        token
+        name
           ?
           `
-            <div class="token">
-              ${escapeHtml(token)}
+            <div class="status-name">
+              ${escapeHtml(name)}
+            </div>
+          `
+          :
+          ''
+      }
+
+      ${
+        detail
+          ?
+          `
+            <div class="status-detail">
+              ${escapeHtml(detail)}
             </div>
           `
           :
@@ -815,11 +1511,6 @@ function showStatus(
 }
 
 
-/**
- * ============================================================
- * ESCAPE
- * ============================================================
- */
 function escapeHtml(
   text
 ) {
